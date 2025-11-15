@@ -2,7 +2,7 @@ import ExperienceTimeline from '../experiences/ExperienceTimeline';
 
 export default function ExperienceSection({ experiences }: any) {
   return (
-    <section id="experience" className="py-20 bg-gradient-to-b from-gray-900 to-black">
+    <section id="experience" className="py-20 bg-black content-auto">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold mb-4">

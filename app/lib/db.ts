@@ -43,8 +43,13 @@ export default clientPromise;
 
 // Helper function to get the database
 export async function getDatabase(): Promise<Db> {
-  const client = await clientPromise;
-  return client.db(dbName);
+  try {
+    const client = await clientPromise;
+    return client.db(dbName);
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    throw new Error('Failed to connect to database. Please check your internet connection.');
+  }
 }
 
 // Collection names

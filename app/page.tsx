@@ -9,13 +9,13 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 
 export default async function Home() {
-  const { settings, projectsByCategory, experiences, skills } = await getHomeData();
+  const { settings, profileImageUrl, projectsByCategory, experiences, skills } = await getHomeData();
 
   return (
     <>
       <Navbar />
       <main>
-        <HeroSection settings={settings} />
+        <HeroSection settings={settings} profileImageUrl={profileImageUrl} />
         <AboutSection settings={settings} />
         <SkillsSection skills={skills} />
         <FeaturedProjectsSection projectsByCategory={projectsByCategory} />

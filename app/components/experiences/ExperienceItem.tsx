@@ -7,7 +7,7 @@ export default function ExperienceItem({ experience, index }: { experience: Expe
       <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white shadow-lg z-10"></div>
       
       {/* Content card */}
-      <div className={`bg-white rounded-xl shadow-lg p-6 md:w-5/12 ${index && index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'} hover:shadow-xl transition-shadow`}>
+      <div className={`bg-white rounded-xl shadow-lg p-6 md:w-5/12 ${index && index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}>
         <div className="mb-2">
           <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
             {experience.startDate} - {experience.current ? 'Present' : experience.endDate}

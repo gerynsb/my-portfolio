@@ -77,10 +77,13 @@ export async function getHomeData() {
   const serializedSkills = skills.map(skill => ({
     ...skill,
     _id: skill._id.toString(),
+    rating: skill.rating || 3, // Default rating if not set (backward compatibility)
+    skills: skill.skills || [], // Default to empty array if not set
   }));
 
   return {
     settings,
+    profileImageUrl: settingsData?.heroImageUrl || null,
     projectsByCategory,
     experiences: serializedExperiences,
     skills: serializedSkills,

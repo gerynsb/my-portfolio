@@ -2,6 +2,7 @@ import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
+import Footer from '@/app/components/layout/Footer';
 
 export default async function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -38,7 +39,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
   const defaultImage = 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=600&fit=crop';
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 flex flex-col">
       {/* Featured Image */}
       <div className="relative w-full h-96 overflow-hidden">
         <img
@@ -50,7 +51,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
       </div>
 
       {/* Article Content */}
-      <article className="container mx-auto px-4 -mt-32 relative z-10">
+      <article className="container mx-auto px-4 -mt-32 relative z-10 flex-grow pb-16">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-8 mb-8 border border-gray-700">
@@ -140,7 +141,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {/* Back to Articles */}
-          <div className="text-center">
+          <div className="text-center mb-16">
             <Link
               href="/articles"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 text-white rounded-lg border border-gray-700 hover:border-blue-500 hover:text-blue-400 transition-all"
@@ -153,6 +154,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           </div>
         </div>
       </article>
+      <Footer />
     </div>
   );
 }

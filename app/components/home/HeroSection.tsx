@@ -1,8 +1,52 @@
 'use client';
 
 import { SiteSettings } from '@/app/types/settings';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
-export default function HeroSection({ settings }: { settings: SiteSettings }) {
+interface HeroSectionProps {
+  settings: SiteSettings;
+  profileImageUrl?: string | null;
+}
+
+export default function HeroSection({ settings, profileImageUrl }: HeroSectionProps) {
+  const roles = [
+    'Frontend Developer',
+    'Flutter Developer',
+    'Data Analyst'
+  ];
+  
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [displayedText, setDisplayedText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  useEffect(() => {
+    const currentRole = roles[currentRoleIndex];
+    
+    const handleTyping = () => {
+      if (!isDeleting) {
+        if (displayedText.length < currentRole.length) {
+          setDisplayedText(currentRole.substring(0, displayedText.length + 1));
+          setTypingSpeed(150);
+        } else {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        if (displayedText.length > 0) {
+          setDisplayedText(currentRole.substring(0, displayedText.length - 1));
+          setTypingSpeed(100);
+        } else {
+          setIsDeleting(false);
+          setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+        }
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, currentRoleIndex, typingSpeed]);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -12,34 +56,34 @@ export default function HeroSection({ settings }: { settings: SiteSettings }) {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black pt-20">
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ top: '10%', left: '10%' }}></div>
-        <div className="absolute w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ top: '60%', right: '10%', animationDelay: '1s' }}></div>
-        <div className="absolute w-64 h-64 bg-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ top: '40%', left: '50%', animationDelay: '2s' }}></div>
+      {/* Animated Background - Optimized */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute w-96 h-96 bg-blue-500/20 rounded-full blur-3xl will-change-opacity" style={{ top: '10%', left: '10%', animation: 'pulse 4s ease-in-out infinite' }}></div>
+        <div className="absolute w-96 h-96 bg-purple-500/20 rounded-full blur-3xl will-change-opacity" style={{ top: '60%', right: '10%', animation: 'pulse 4s ease-in-out infinite 1s' }}></div>
+        <div className="absolute w-64 h-64 bg-pink-500/20 rounded-full blur-3xl will-change-opacity" style={{ top: '40%', left: '50%', animation: 'pulse 4s ease-in-out infinite 2s' }}></div>
       </div>
 
       <div className="container mx-auto px-8 lg:px-24 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
           <div className="space-y-6">
             <p className="text-blue-400 font-semibold text-lg">{settings.heroGreeting}</p>
-            <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
-              {settings.heroTitle}
+            <h1 className="text-5xl lg:text-7xl bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent font-bold min-h-[5rem] lg:min-h-[6rem] flex items-center">
+              {displayedText}<span className="animate-pulse">|</span>
             </h1>
-            <h2 className="text-3xl lg:text-4xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-semibold">
-              {settings.heroSubtitle}
-            </h2>
+            <p className="text-gray-400 text-sm leading-relaxed max-w-lg">
+              Passionate tech enthusiast building secure, reliable apps, web solutions and AI driven data analyst on the journey to entrepreneurship.
+            </p>
             
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <button
                 onClick={() => scrollToSection('projects')}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm sm:text-base"
               >
                 View My Work
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="border-2 border-gray-600 text-gray-300 px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-black hover:border-white transition-all hover:scale-105"
+                className="border-2 border-gray-600 text-gray-300 px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold hover:bg-white hover:text-black hover:border-white transition-all hover:scale-105 text-sm sm:text-base"
               >
                 Get in Touch
               </button>
@@ -90,11 +134,26 @@ export default function HeroSection({ settings }: { settings: SiteSettings }) {
           </div>
           
           <div className="flex justify-center lg:justify-end">
-            <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform ring-4 ring-blue-500/30">
-              <span className="text-white text-8xl font-bold">
-                {settings.heroTitle?.[0] || 'P'}
-              </span>
-            </div>
+            {profileImageUrl ? (
+              <div className="relative w-80 h-80 lg:w-96 lg:h-96 aspect-square rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/30 hover:ring-purple-500/30 transition-all">
+                <Image
+                  src={profileImageUrl}
+                  alt="Profile"
+                  fill
+                  sizes="(max-width: 1024px) 320px, 384px"
+                  className="object-cover"
+                  priority
+                  fetchPriority="high"
+                  quality={85}
+                />
+              </div>
+            ) : (
+              <div className="w-80 h-80 lg:w-96 lg:h-96 aspect-square rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform ring-4 ring-blue-500/30">
+                <span className="text-white text-8xl font-bold">
+                  {settings.heroTitle?.[0] || 'P'}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,11 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 import { Article } from '@/app/types/article';
+import { useState } from 'react';
 
 interface ArticleCardProps {
   article: Article;
 }
 
 export default function ArticleCard({ article }: ArticleCardProps) {
+  const [imageError, setImageError] = useState(false);
   const defaultImage = 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=450&fit=crop'; // Default typewriter/article image
   
   // Truncate content to show preview
@@ -25,12 +29,20 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   return (
     <div className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
       {/* Featured Image */}
-      <div className="relative h-48 w-full overflow-hidden">
-        <img
-          src={article.featuredImageUrl || defaultImage}
-          alt={article.title}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-        />
+      <div className="relative h-48 w-full overflow-hidden bg-gray-900">
+        {!imageError ? (
+          <img
+            src={article.featuredImageUrl || defaultImage}
+            alt={article.title}
+            loading="lazy"
+            onError={() => setImageError(true)}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-blue-500/80 to-purple-600/80 flex items-center justify-center">
+            <span className="text-white text-4xl font-bold">{article.title.charAt(0)}</span>
+          </div>
+        )}
         {/* Category Badge */}
         <div className="absolute top-4 right-4">
           <span className="px-3 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full">

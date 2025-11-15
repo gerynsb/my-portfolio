@@ -275,13 +275,15 @@ export default function SettingsForm() {
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
-      >
-        {loading ? 'Saving...' : 'Save Settings'}
-      </button>
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full sm:w-auto bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm sm:text-base"
+        >
+          {loading ? 'Saving...' : 'Save Settings'}
+        </button>
+      </div>
     </form>
   );
 }

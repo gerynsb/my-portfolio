@@ -4,7 +4,7 @@ export default function NewSkillPage() {
   return (
     <div>
       <div className="p-8">
-        <h1 className="text-3xl font-bold mb-8 text-black">Create New Skill</h1>
+        <h1 className="text-3xl font-bold mb-8 text-black">Create New Skill Category</h1>
         <SkillForm />
       </div>
     </div>

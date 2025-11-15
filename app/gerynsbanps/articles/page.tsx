@@ -50,7 +50,7 @@ export default function ArticlesPage() {
         <div className="mb-6">
           <Link
             href="/gerynsbanps/articles/new"
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm sm:text-base inline-block"
           >
             + Add New Article
           </Link>
@@ -62,7 +62,8 @@ export default function ArticlesPage() {
           <p className="text-gray-500">No articles yet.</p>
         ) : (
           <div className="bg-white rounded-lg shadow overflow-hidden">
-            <table className="w-full">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[640px]">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
@@ -122,6 +123,7 @@ export default function ArticlesPage() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
       </div>

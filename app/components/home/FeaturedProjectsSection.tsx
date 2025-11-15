@@ -1,31 +1,42 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import ProjectCard from '../projects/ProjectCard';
 import { Project } from '@/app/types/project';
 
 export default function FeaturedProjectsSection({ projectsByCategory }: any) {
   const [currentPages, setCurrentPages] = useState<{ [key: string]: number }>({});
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const itemsPerPage = 3;
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [touchStarts, setTouchStarts] = useState<{ [key: string]: number }>({});
+  const [touchEnds, setTouchEnds] = useState<{ [key: string]: number }>({});
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerPage(window.innerWidth < 768 ? 1 : 3);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  const setPage = (categoryId: string, page: number) => {
+  const setPage = useCallback((categoryId: string, page: number) => {
     setCurrentPages(prev => ({ ...prev, [categoryId]: page }));
-  };
+  }, []);
 
-  const getCurrentPage = (categoryId: string) => currentPages[categoryId] || 0;
+  const getCurrentPage = useCallback((categoryId: string) => currentPages[categoryId] || 0, [currentPages]);
 
-  const handleViewDetail = (project: Project) => {
+  const handleViewDetail = useCallback((project: Project) => {
     setSelectedProject(project);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setSelectedProject(null);
-  };
+  }, []);
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-b from-black via-gray-900 to-black">
-      <div className="container mx-auto px-4">
+    <section id="projects" className="py-20 bg-gradient-to-b from-black via-gray-900 to-black content-auto">
+      <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -60,23 +71,55 @@ export default function FeaturedProjectsSection({ projectsByCategory }: any) {
               const prevPage = () => {
                 setPage(categoryId, (currentPage - 1 + totalPages) % totalPages);
               };
+              
+              // Touch handlers
+              const handleTouchStart = (e: React.TouchEvent) => {
+                setTouchStarts(prev => ({ ...prev, [categoryId]: e.targetTouches[0].clientX }));
+              };
+              
+              const handleTouchMove = (e: React.TouchEvent) => {
+                setTouchEnds(prev => ({ ...prev, [categoryId]: e.targetTouches[0].clientX }));
+              };
+              
+              const handleTouchEnd = () => {
+                const touchStart = touchStarts[categoryId];
+                const touchEnd = touchEnds[categoryId];
+                
+                if (!touchStart || !touchEnd) return;
+                
+                const distance = touchStart - touchEnd;
+                const isLeftSwipe = distance > 50;
+                const isRightSwipe = distance < -50;
+                
+                if (isLeftSwipe) nextPage();
+                if (isRightSwipe) prevPage();
+                
+                setTouchStarts(prev => ({ ...prev, [categoryId]: 0 }));
+                setTouchEnds(prev => ({ ...prev, [categoryId]: 0 }));
+              };
 
               return (
                 <div key={categoryId}>
                   {/* Category Title with Horizontal Lines */}
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="flex-1 h-px bg-gradient-to-r from-transparent to-gray-300"></div>
-                    <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 whitespace-nowrap">{group.category.name}</h3>
-                    <div className="flex-1 h-px bg-gradient-to-l from-transparent to-gray-300"></div>
+                    <div className="flex-1 h-px bg-gradient-to-r from-transparent to-gray-700"></div>
+                    <h3 className="text-2xl lg:text-3xl font-bold text-white whitespace-nowrap">{group.category.name}</h3>
+                    <div className="flex-1 h-px bg-gradient-to-l from-transparent to-gray-700"></div>
                   </div>
 
-                  {/* Projects Grid - Dynamic centering */}
-                  <div className="mb-8">
-                    <div className={`grid gap-8 ${
-                      currentProjects.length === 1 ? 'grid-cols-1 max-w-md mx-auto' :
-                      currentProjects.length === 2 ? 'md:grid-cols-2 max-w-4xl mx-auto' :
-                      'md:grid-cols-2 lg:grid-cols-3'
-                    }`}>
+                  {/* Projects Grid - Dynamic centering with animation */}
+                  <div className="mb-8 overflow-hidden">
+                    <div 
+                      className={`grid gap-6 lg:gap-8 transition-all duration-500 ease-in-out max-w-7xl mx-auto ${
+                        currentProjects.length === 1 || itemsPerPage === 1 ? 'grid-cols-1 max-w-md mx-auto' :
+                        currentProjects.length === 2 ? 'md:grid-cols-2 max-w-3xl mx-auto' :
+                        'md:grid-cols-2 lg:grid-cols-3'
+                      }`}
+                      style={{ transform: `translateX(${currentPage === 0 ? '0' : '-10px'})` }}
+                      onTouchStart={handleTouchStart}
+                      onTouchMove={handleTouchMove}
+                      onTouchEnd={handleTouchEnd}
+                    >
                       {currentProjects.map((project: any) => (
                         <ProjectCard key={project._id} project={project} onViewDetail={handleViewDetail} />
                       ))}
