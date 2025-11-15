@@ -28,7 +28,7 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
   if (skills.length === 0) return null;
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="skills" className="py-20 bg-black relative overflow-hidden">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
@@ -45,7 +45,7 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
           {currentSkills.map((skill) => (
             <div
               key={skill._id}
-              className="bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all duration-300 flex flex-col items-center"
+              className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 flex flex-col items-center"
               style={{ minHeight: '280px', maxHeight: '320px' }}
             >
               {/* Icon/Logo */}
@@ -66,12 +66,12 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
                 </svg>
               </div>
               
-              <h3 className="text-lg font-bold text-gray-900 mb-3 text-center line-clamp-2 flex-shrink-0">
+              <h3 className="text-lg font-bold text-white mb-3 text-center line-clamp-2 flex-shrink-0">
                 {skill.title}
               </h3>
               <div className="flex-1 w-full overflow-hidden flex items-center justify-center">
                 <p 
-                  className="text-gray-600 text-center leading-relaxed w-full px-2"
+                  className="text-gray-400 text-center leading-relaxed w-full px-2"
                   style={{
                     fontSize: 'clamp(0.75rem, 0.85rem, 0.95rem)',
                     display: '-webkit-box',

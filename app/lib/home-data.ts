@@ -8,7 +8,20 @@ export async function getHomeData() {
   const db = await getDatabase();
 
   // Fetch site settings
-  const settings = await db.collection(COLLECTIONS.SITE_SETTINGS).findOne({}) as SiteSettings | null;
+  const settingsData = await db.collection(COLLECTIONS.SITE_SETTINGS).findOne({}) as SiteSettings | null;
+
+  // Serialize settings
+  const settings = settingsData ? {
+    ...settingsData,
+    _id: settingsData._id?.toString(),
+  } : {
+    heroGreeting: "Hi, I'm",
+    heroTitle: 'Welcome to My Portfolio',
+    heroSubtitle: 'Full Stack Developer',
+    aboutTitle: 'About Me',
+    aboutBody: 'Add your about content in admin settings.',
+    contactEmail: 'your@email.com',
+  };
 
   // Fetch featured projects with categories
   const projects = await db
@@ -67,14 +80,7 @@ export async function getHomeData() {
   }));
 
   return {
-    settings: settings || {
-      heroGreeting: "Hi, I'm",
-      heroTitle: 'Welcome to My Portfolio',
-      heroSubtitle: 'Full Stack Developer',
-      aboutTitle: 'About Me',
-      aboutBody: 'Add your about content in admin settings.',
-      contactEmail: 'your@email.com',
-    },
+    settings,
     projectsByCategory,
     experiences: serializedExperiences,
     skills: serializedSkills,

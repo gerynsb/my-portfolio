@@ -5,19 +5,25 @@ import SkillsSection from './components/home/SkillsSection';
 import FeaturedProjectsSection from './components/home/FeaturedProjectsSection';
 import ExperienceSection from './components/home/ExperienceSection';
 import ContactSection from './components/home/ContactSection';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 
 export default async function Home() {
   const { settings, projectsByCategory, experiences, skills } = await getHomeData();
 
   return (
-    <div>
-      <HeroSection settings={settings} />
-      <AboutSection settings={settings} />
-      <SkillsSection skills={skills} />
-      <FeaturedProjectsSection projectsByCategory={projectsByCategory} />
-      <ExperienceSection experiences={experiences} />
-      <ContactSection settings={settings} />
-    </div>
+    <>
+      <Navbar />
+      <main>
+        <HeroSection settings={settings} />
+        <AboutSection settings={settings} />
+        <SkillsSection skills={skills} />
+        <FeaturedProjectsSection projectsByCategory={projectsByCategory} />
+        <ExperienceSection experiences={experiences} />
+        <ContactSection settings={settings} />
+      </main>
+      <Footer />
+    </>
   );
 }
 
