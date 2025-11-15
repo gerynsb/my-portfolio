@@ -44,22 +44,13 @@ export async function PATCH(
     const validatedData = articleSchema.parse(body);
 
     const db = await getDatabase();
-    const slug = slugify(validatedData.title);
+    const slug = body.slug || slugify(validatedData.title);
 
     const updateData: any = {
       ...validatedData,
       slug,
       updatedAt: new Date(),
     };
-
-    // Update publishedAt if article is being published for the first time
-    const existingArticle = await db
-      .collection(COLLECTIONS.ARTICLES)
-      .findOne({ _id: new ObjectId(id) });
-
-    if (validatedData.published && !existingArticle?.published) {
-      updateData.publishedAt = new Date();
-    }
 
     const result = await db
       .collection(COLLECTIONS.ARTICLES)

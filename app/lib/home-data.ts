@@ -2,6 +2,7 @@ import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { SiteSettings } from '@/app/types/settings';
 import { Project } from '@/app/types/project';
 import { Experience } from '@/app/types/experience';
+import { Skill } from '@/app/types/skill';
 
 export async function getHomeData() {
   const db = await getDatabase();
@@ -25,8 +26,17 @@ export async function getHomeData() {
 
   // Group projects by category
   const projectsByCategory = projectCategories.map((category: any) => ({
-    category,
-    projects: projects.filter(p => p.categoryId === category._id?.toString()),
+    category: {
+      ...category,
+      _id: category._id.toString(),
+    },
+    projects: projects
+      .filter(p => p.categoryId === category._id?.toString())
+      .map(project => ({
+        ...project,
+        _id: project._id.toString(),
+        categoryId: project.categoryId?.toString(),
+      })),
   })).filter((group: any) => group.projects.length > 0);
 
   // Fetch experiences
@@ -37,8 +47,28 @@ export async function getHomeData() {
     .limit(5)
     .toArray() as any[];
 
+  // Convert MongoDB ObjectIds to strings for client components
+  const serializedExperiences = experiences.map(exp => ({
+    ...exp,
+    _id: exp._id.toString(),
+  }));
+
+  // Fetch skills
+  const skills = await db
+    .collection(COLLECTIONS.SKILLS)
+    .find({})
+    .sort({ order: 1, createdAt: -1 })
+    .toArray() as any[];
+
+  // Convert MongoDB ObjectIds to strings for client components
+  const serializedSkills = skills.map(skill => ({
+    ...skill,
+    _id: skill._id.toString(),
+  }));
+
   return {
     settings: settings || {
+      heroGreeting: "Hi, I'm",
       heroTitle: 'Welcome to My Portfolio',
       heroSubtitle: 'Full Stack Developer',
       aboutTitle: 'About Me',
@@ -46,6 +76,7 @@ export async function getHomeData() {
       contactEmail: 'your@email.com',
     },
     projectsByCategory,
-    experiences,
+    experiences: serializedExperiences,
+    skills: serializedSkills,
   };
 }

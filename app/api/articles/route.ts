@@ -7,40 +7,27 @@ import { slugify } from '@/app/lib/slugify';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const categoryId = searchParams.get('categoryId');
     const published = searchParams.get('published');
+    const category = searchParams.get('category');
 
     const db = await getDatabase();
     const query: any = {};
-
-    if (categoryId) {
-      query.categoryId = categoryId;
-    }
 
     if (published === 'true') {
       query.published = true;
     }
 
+    if (category) {
+      query.category = category;
+    }
+
     const articles = await db
       .collection(COLLECTIONS.ARTICLES)
       .find(query)
-      .sort({ publishedAt: -1, createdAt: -1 })
+      .sort({ createdAt: -1 })
       .toArray();
 
-    // Populate category names
-    const articlesWithCategories = await Promise.all(
-      articles.map(async (article) => {
-        const category = await db
-          .collection(COLLECTIONS.ARTICLE_CATEGORIES)
-          .findOne({ _id: article.categoryId });
-        return {
-          ...article,
-          categoryName: category?.name || 'Uncategorized',
-        };
-      })
-    );
-
-    return NextResponse.json(articlesWithCategories);
+    return NextResponse.json(articles);
   } catch (error) {
     console.error('Error fetching articles:', error);
     return NextResponse.json(
@@ -57,7 +44,7 @@ export async function POST(request: NextRequest) {
     const validatedData = articleSchema.parse(body);
 
     const db = await getDatabase();
-    const slug = slugify(validatedData.title);
+    const slug = body.slug || slugify(validatedData.title);
 
     // Check if slug already exists
     const existing = await db
@@ -73,11 +60,6 @@ export async function POST(request: NextRequest) {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-
-    // Set publishedAt if published is true
-    if (validatedData.published) {
-      articleData.publishedAt = new Date();
-    }
 
     const result = await db.collection(COLLECTIONS.ARTICLES).insertOne(articleData);
 

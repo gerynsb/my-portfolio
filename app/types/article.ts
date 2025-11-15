@@ -1,15 +1,12 @@
 export interface Article {
   _id?: string;
   title: string;
+  subtitle: string;
   slug: string;
-  excerpt: string;
+  category: string; // User inputs category name directly
+  featuredImageUrl?: string;
   content: string; // Markdown content
-  coverImageUrl?: string;
-  categoryId: string;
-  categoryName?: string; // For display purposes
-  tags?: string[];
   published?: boolean;
-  publishedAt?: Date;
   views?: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -17,10 +14,9 @@ export interface Article {
 
 export interface ArticleInput {
   title: string;
-  excerpt: string;
+  subtitle: string;
+  category: string;
+  featuredImageUrl?: string;
   content: string;
-  coverImageUrl?: string;
-  categoryId: string;
-  tags?: string[];
   published?: boolean;
 }

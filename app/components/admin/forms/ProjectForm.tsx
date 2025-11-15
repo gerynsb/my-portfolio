@@ -142,7 +142,7 @@ export default function ProjectForm({ project }: ProjectFormProps) {
         throw new Error(errorData.error || 'Failed to save project');
       }
 
-      router.push('/admin/projects');
+      router.push('/gerynsbanps/projects');
       router.refresh();
     } catch (err: any) {
       setError(err.message);

@@ -55,4 +55,5 @@ export const COLLECTIONS = {
   EXPERIENCES: 'experiences',
   ARTICLE_CATEGORIES: 'article_categories',
   ARTICLES: 'articles',
+  SKILLS: 'skills',
 } as const;

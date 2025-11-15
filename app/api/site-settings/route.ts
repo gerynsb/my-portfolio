@@ -11,6 +11,7 @@ export async function GET() {
     if (!settings) {
       // Return default settings if none exist
       return NextResponse.json({
+        heroGreeting: "Hi, I'm",
         heroTitle: 'Welcome to My Portfolio',
         heroSubtitle: 'Full Stack Developer & Designer',
         aboutTitle: 'About Me',

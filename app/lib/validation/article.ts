@@ -2,11 +2,10 @@ import { z } from 'zod';
 
 export const articleSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200),
-  excerpt: z.string().min(1, 'Excerpt is required').max(500),
+  subtitle: z.string().min(1, 'Subtitle is required').max(300),
+  category: z.string().min(1, 'Category is required').max(100),
+  featuredImageUrl: z.string().url().optional().or(z.literal('')),
   content: z.string().min(1, 'Content is required'),
-  coverImageUrl: z.string().url().optional().or(z.literal('')),
-  categoryId: z.string().min(1, 'Category is required'),
-  tags: z.array(z.string()).optional(),
   published: z.boolean().optional(),
 });
 

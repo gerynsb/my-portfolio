@@ -19,6 +19,25 @@ export default function AboutSection({ settings }: { settings: SiteSettings }) {
               {settings.aboutBody}
             </p>
           </div>
+
+          {/* Interests & Soft Skills */}
+          {settings.interests && settings.interests.length > 0 && (
+            <div className="mt-8 pt-8 border-t border-gray-200">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Interests & Soft Skills
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {settings.interests.map((interest, index) => (
+                  <span
+                    key={index}
+                    className="px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-gray-700 rounded-full text-sm font-medium hover:shadow-md transition-shadow"
+                  >
+                    {interest}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

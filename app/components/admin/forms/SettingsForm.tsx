@@ -9,11 +9,13 @@ export default function SettingsForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState<Partial<SiteSettings>>({
+    heroGreeting: '',
     heroTitle: '',
     heroSubtitle: '',
     heroImageUrl: '',
     aboutTitle: '',
     aboutBody: '',
+    interests: [],
     contactEmail: '',
     contactWhatsapp: '',
     contactGithub: '',
@@ -79,6 +81,19 @@ export default function SettingsForm() {
         
         <div className="space-y-4">
           <div>
+            <label className="block text-sm font-medium mb-1 text-gray-700">Hero Greeting *</label>
+            <input
+              type="text"
+              name="heroGreeting"
+              value={formData.heroGreeting || ''}
+              onChange={handleChange}
+              required
+              placeholder="e.g., Hi, I'm"
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600 placeholder:text-gray-500"
+            />
+          </div>
+
+          <div>
             <label className="block text-sm font-medium mb-1 text-gray-700">Hero Title *</label>
             <input
               type="text"
@@ -141,6 +156,46 @@ export default function SettingsForm() {
               rows={6}
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600"
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1 text-gray-700">Interests & Soft Skills</label>
+            <div className="space-y-2">
+              {(formData.interests || []).map((interest, index) => (
+                <div key={index} className="flex gap-2">
+                  <input
+                    type="text"
+                    value={interest}
+                    onChange={(e) => {
+                      const newInterests = [...(formData.interests || [])];
+                      newInterests[index] = e.target.value;
+                      setFormData({ ...formData, interests: newInterests });
+                    }}
+                    className="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600"
+                    placeholder="e.g., Leadership, Problem Solving"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newInterests = formData.interests?.filter((_, i) => i !== index) || [];
+                      setFormData({ ...formData, interests: newInterests });
+                    }}
+                    className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData({ ...formData, interests: [...(formData.interests || []), ''] });
+                }}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              >
+                Add Interest
+              </button>
+            </div>
           </div>
         </div>
       </div>

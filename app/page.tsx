@@ -1,17 +1,19 @@
 import { getHomeData } from './lib/home-data';
 import HeroSection from './components/home/HeroSection';
 import AboutSection from './components/home/AboutSection';
+import SkillsSection from './components/home/SkillsSection';
 import FeaturedProjectsSection from './components/home/FeaturedProjectsSection';
 import ExperienceSection from './components/home/ExperienceSection';
 import ContactSection from './components/home/ContactSection';
 
 export default async function Home() {
-  const { settings, projectsByCategory, experiences } = await getHomeData();
+  const { settings, projectsByCategory, experiences, skills } = await getHomeData();
 
   return (
     <div>
       <HeroSection settings={settings} />
       <AboutSection settings={settings} />
+      <SkillsSection skills={skills} />
       <FeaturedProjectsSection projectsByCategory={projectsByCategory} />
       <ExperienceSection experiences={experiences} />
       <ContactSection settings={settings} />

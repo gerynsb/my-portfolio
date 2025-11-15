@@ -15,7 +15,7 @@ export default function HeroSection({ settings }: { settings: SiteSettings }) {
           {/* Left side - Text content */}
           <div className="space-y-6">
             <div className="space-y-2">
-              <p className="text-gray-400 text-lg">Hi, I'm</p>
+              <p className="text-gray-400 text-lg">{settings.heroGreeting}</p>
               <h1 className="text-5xl lg:text-7xl font-bold">
                 <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                   {settings.heroTitle}
