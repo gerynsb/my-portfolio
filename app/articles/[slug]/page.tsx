@@ -3,6 +3,54 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Footer from '@/app/components/layout/Footer';
 import ArticleContent from '@/app/components/articles/ArticleContent';
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const db = await getDatabase();
+  const article = await db
+    .collection(COLLECTIONS.ARTICLES)
+    .findOne({ slug: slug, published: true }) as any;
+
+  if (!article) {
+    return {
+      title: 'Article Not Found',
+    };
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://deangerypasamba.site';
+  const defaultImage = 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=600&fit=crop';
+
+  return {
+    title: article.title,
+    description: article.subtitle || article.content.substring(0, 160),
+    keywords: [article.category, 'article', 'blog', 'Dean Gery Pasamba'],
+    authors: [{ name: 'Dean Gery Pasamba' }],
+    openGraph: {
+      title: article.title,
+      description: article.subtitle || article.content.substring(0, 160),
+      url: `${baseUrl}/articles/${article.slug}`,
+      type: 'article',
+      publishedTime: new Date(article.createdAt).toISOString(),
+      modifiedTime: new Date(article.updatedAt || article.createdAt).toISOString(),
+      authors: ['Dean Gery Pasamba'],
+      images: [
+        {
+          url: article.featuredImageUrl || defaultImage,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.subtitle || article.content.substring(0, 160),
+      images: [article.featuredImageUrl || defaultImage],
+    },
+  };
+}
 
 export default async function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

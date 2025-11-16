@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Dean Gery Pasamba",
+  "url": "https://deangerypasamba.site",
+  "sameAs": [
+    "https://github.com/gerynsb",
+    "https://linkedin.com/in/yourprofile",
+    "https://instagram.com/yourusername"
+  ],
+  "jobTitle": "Full Stack Developer",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Freelance"
+  },
+  "description": "Full Stack Developer specializing in web apps, Flutter development, and data analysis.",
+  "knowsAbout": ["Web Development", "Flutter", "Data Analysis", "JavaScript", "TypeScript", "React", "Next.js"]
+}

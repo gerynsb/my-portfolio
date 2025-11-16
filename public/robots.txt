@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /gerynsbanps/
+Disallow: /api/
 
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://deangerypasamba.site/sitemap.xml

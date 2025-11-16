@@ -3,13 +3,64 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
-  title: "Dean Gery Pasamba - Portfolio",
+  metadataBase: new URL('https://deangerypasamba.site'),
+  title: {
+    default: "Dean Gery Pasamba - Full Stack Developer Portfolio",
+    template: "%s | Dean Gery Pasamba"
+  },
   description: "Full Stack Developer specializing in web apps, Flutter development, and data analysis. Passionate tech enthusiast building secure, reliable solutions.",
-  keywords: ["Full Stack Developer", "Flutter Developer", "Data Analyst", "Portfolio", "Web Development"],
-  authors: [{ name: "Dean Gery Pasamba" }],
+  keywords: ["Dean Gery Pasamba", "Full Stack Developer", "Flutter Developer", "Data Analyst", "Portfolio", "Web Development", "Mobile Development", "Indonesia Developer"],
+  authors: [{ name: "Dean Gery Pasamba", url: "https://deangerypasamba.site" }],
+  creator: "Dean Gery Pasamba",
+  publisher: "Dean Gery Pasamba",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+  },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'id_ID',
+    url: 'https://deangerypasamba.site',
+    title: 'Dean Gery Pasamba - Full Stack Developer Portfolio',
+    description: 'Full Stack Developer specializing in web apps, Flutter development, and data analysis. Building innovative solutions.',
+    siteName: 'Dean Gery Pasamba Portfolio',
+    images: [
+      {
+        url: '/og-image.png', // Buat gambar ini nanti 1200x630px
+        width: 1200,
+        height: 630,
+        alt: 'Dean Gery Pasamba Portfolio',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Dean Gery Pasamba - Full Stack Developer Portfolio',
+    description: 'Full Stack Developer specializing in web apps, Flutter development, and data analysis.',
+    images: ['/og-image.png'],
+  },
+  verification: {
+    google: '6vK7VZXBtmAoi_zAN7vytZoa-DO2GFoAGPLvhNf4_Y8',
   },
 };
 
@@ -29,6 +80,20 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="canonical" href="https://deangerypasamba.site" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Dean Gery Pasamba",
+              "url": "https://deangerypasamba.site",
+              "jobTitle": "Full Stack Developer",
+              "description": "Full Stack Developer specializing in web apps, Flutter development, and data analysis.",
+            })
+          }}
+        />
       </head>
       <body className="font-sans antialiased">
         <div className="flex flex-col min-h-screen bg-black">
