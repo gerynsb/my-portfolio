@@ -57,7 +57,6 @@ export async function getHomeData() {
     .collection(COLLECTIONS.EXPERIENCES)
     .find({})
     .sort({ order: 1, startDate: -1 })
-    .limit(5)
     .toArray() as any[];
 
   // Convert MongoDB ObjectIds to strings for client components
