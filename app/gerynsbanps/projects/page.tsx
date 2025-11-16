@@ -63,19 +63,19 @@ export default function ProjectsPage() {
         ) : (
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[640px]">
+              <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Title
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
                     Featured
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -83,18 +83,26 @@ export default function ProjectsPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {projects.map((project) => (
                   <tr key={project._id}>
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-600">
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="text-sm font-medium text-gray-900 max-w-xs truncate" title={project.title}>
                         {project.title}
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-500 line-clamp-2">
                         {project.description?.substring(0, 60)}...
                       </div>
+                      <div className="md:hidden mt-1">
+                        <span className="text-xs text-gray-400">{project.categoryName || 'N/A'}</span>
+                        {project.featured && (
+                          <span className="ml-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">
+                            Featured
+                          </span>
+                        )}
+                      </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
-                      {project.categoryName || 'N/A'}
+                    <td className="px-4 sm:px-6 py-4 text-sm text-gray-500 hidden md:table-cell">
+                      <div className="max-w-xs truncate" title={project.categoryName}>{project.categoryName || 'N/A'}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap hidden lg:table-cell">
                       {project.featured ? (
                         <span className="px-2 py-1 text-xs rounded bg-green-100 text-green-800">
                           Yes

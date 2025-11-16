@@ -63,19 +63,19 @@ export default function ExperiencesPage() {
         ) : (
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[640px]">
+              <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Title
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
                     Company
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">
                     Period
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -83,13 +83,15 @@ export default function ExperiencesPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {experiences.map((exp) => (
                   <tr key={exp._id}>
-                    <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-600">
-                      {exp.title}
+                    <td className="px-4 sm:px-6 py-4 font-medium text-gray-900">
+                      <div className="max-w-xs truncate" title={exp.title}>{exp.title}</div>
+                      <div className="text-sm text-gray-500 md:hidden">{exp.company}</div>
+                      <div className="text-xs text-gray-400 lg:hidden">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-600">
-                      {exp.company}
+                    <td className="px-4 sm:px-6 py-4 text-gray-900 hidden md:table-cell">
+                      <div className="max-w-xs truncate" title={exp.company}>{exp.company}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                    <td className="px-4 sm:px-6 py-4 text-sm text-gray-500 hidden lg:table-cell whitespace-nowrap">
                       {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

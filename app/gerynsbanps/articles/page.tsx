@@ -63,19 +63,19 @@ export default function ArticlesPage() {
         ) : (
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[640px]">
+              <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Title
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="hidden md:table-cell px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="hidden lg:table-cell px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -83,18 +83,33 @@ export default function ArticlesPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {articles.map((article) => (
                   <tr key={article._id}>
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-600">
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="text-sm font-medium text-gray-900 max-w-xs truncate" title={article.title}>
                         {article.title}
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-500 line-clamp-2">
                         {article.excerpt?.substring(0, 60)}...
                       </div>
+                      {/* Show category and status on mobile */}
+                      <div className="md:hidden mt-2 flex items-center gap-2">
+                        <span className="text-xs text-gray-500">
+                          {article.categoryName || 'N/A'}
+                        </span>
+                        {article.published ? (
+                          <span className="px-2 py-1 text-xs rounded bg-green-100 text-green-800">
+                            Published
+                          </span>
+                        ) : (
+                          <span className="px-2 py-1 text-xs rounded bg-yellow-100 text-yellow-800">
+                            Draft
+                          </span>
+                        )}
+                      </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    <td className="hidden md:table-cell px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {article.categoryName || 'N/A'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="hidden lg:table-cell px-4 sm:px-6 py-4 whitespace-nowrap">
                       {article.published ? (
                         <span className="px-2 py-1 text-xs rounded bg-green-100 text-green-800">
                           Published
@@ -105,7 +120,7 @@ export default function ArticlesPage() {
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Link
                         href={`/gerynsbanps/articles/${article._id}`}
                         className="text-blue-600 hover:text-blue-900 mr-4"

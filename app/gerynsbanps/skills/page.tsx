@@ -61,16 +61,16 @@ export default function SkillsPage() {
         ) : (
           <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="min-w-full min-w-[640px] divide-y divide-gray-200">
+              <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                  <th className="hidden md:table-cell px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                     Skills
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">
+                  <th className="px-4 sm:px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -78,13 +78,31 @@ export default function SkillsPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {skills.map((skill) => (
                   <tr key={skill._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <div className="text-sm font-medium text-gray-900">{skill.title}</div>
+                    <td className="px-4 sm:px-6 py-4">
+                      <div className="text-sm font-medium text-gray-900 max-w-xs truncate" title={skill.title}>
+                        {skill.title}
+                      </div>
                       {skill.description && (
                         <div className="text-sm text-gray-500 mt-1 line-clamp-2">{skill.description}</div>
                       )}
+                      {/* Show skills on mobile */}
+                      <div className="md:hidden mt-2 flex flex-wrap gap-2">
+                        {skill.skills && skill.skills.length > 0 ? (
+                          skill.skills.map((subSkill: any, idx: number) => (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                            >
+                              {subSkill.name}
+                              <span className="text-yellow-600">{'⭐'.repeat(subSkill.rating)}</span>
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-gray-400 text-sm">No skills added</span>
+                        )}
+                      </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="hidden md:table-cell px-4 sm:px-6 py-4">
                       <div className="flex flex-wrap gap-2">
                         {skill.skills && skill.skills.length > 0 ? (
                           skill.skills.map((subSkill: any, idx: number) => (
@@ -101,7 +119,7 @@ export default function SkillsPage() {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Link
                         href={`/gerynsbanps/skills/${skill._id}`}
                         className="text-blue-600 hover:text-blue-900 mr-4"

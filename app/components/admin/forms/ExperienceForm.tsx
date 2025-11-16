@@ -45,7 +45,7 @@ export default function ExperienceForm({ experience }: ExperienceFormProps) {
         throw new Error(errorData.error || 'Failed to save experience');
       }
 
-      router.push('/admin/experiences');
+      router.push('/gerynsbanps/experiences');
       router.refresh();
     } catch (err: any) {
       setError(err.message);
