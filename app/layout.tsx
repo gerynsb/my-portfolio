@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: "Full Stack Developer specializing in web apps, Flutter development, and data analysis. Passionate tech enthusiast building secure, reliable solutions.",
   keywords: ["Full Stack Developer", "Flutter Developer", "Data Analyst", "Portfolio", "Web Development"],
   authors: [{ name: "Dean Gery Pasamba" }],
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {

@@ -1,8 +1,8 @@
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import Footer from '@/app/components/layout/Footer';
+import ArticleContent from '@/app/components/articles/ArticleContent';
 
 export default async function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -83,20 +83,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
 
           {/* Article Content */}
           <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-8 mb-8 border border-gray-700">
-            <div className="prose prose-invert prose-lg max-w-none
-              prose-headings:text-white
-              prose-p:text-gray-300
-              prose-a:text-blue-400 prose-a:no-underline hover:prose-a:text-blue-300
-              prose-strong:text-white
-              prose-code:text-blue-400 prose-code:bg-gray-900 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-              prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-700
-              prose-img:rounded-lg prose-img:border prose-img:border-gray-700
-              prose-blockquote:border-blue-500 prose-blockquote:text-gray-300
-              prose-ul:text-gray-300
-              prose-ol:text-gray-300
-              prose-li:text-gray-300">
-              <ReactMarkdown>{article.content}</ReactMarkdown>
-            </div>
+            <ArticleContent content={article.content} />
           </div>
 
           {/* Previous/Next Navigation */}

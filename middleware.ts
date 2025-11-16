@@ -8,10 +8,12 @@ const SESSION_COOKIE = 'admin_session';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for API routes, static files, and non-admin routes
+  // Skip middleware for API routes, static files, service workers, and non-admin routes
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
+    pathname === '/sw.js' ||
+    pathname === '/service-worker.js' ||
     pathname.includes('.') ||
     !pathname.startsWith(ADMIN_PATH)
   ) {
