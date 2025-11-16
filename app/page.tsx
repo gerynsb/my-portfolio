@@ -19,8 +19,8 @@ const ContactSection = dynamic(() => import('./components/home/ContactSection'),
   loading: () => <div className="min-h-screen bg-gradient-to-b from-black to-gray-900" />,
 });
 
-// Enable ISR for faster page loads
-export const revalidate = 3600; // Revalidate every hour
+// Enable ISR for faster page loads - revalidate every 60 seconds for fresh data
+export const revalidate = 60; // Revalidate every minute
 
 export default async function Home() {
   const { settings, profileImageUrl, projectsByCategory, experiences, skills } = await getHomeData();
