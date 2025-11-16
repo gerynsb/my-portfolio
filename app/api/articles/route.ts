@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { articleSchema } from '@/app/lib/validation/article';
 import { slugify } from '@/app/lib/slugify';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 
 // GET - List all articles
 export async function GET(request: NextRequest) {
@@ -66,6 +67,9 @@ export async function POST(request: NextRequest) {
     const article = await db
       .collection(COLLECTIONS.ARTICLES)
       .findOne({ _id: result.insertedId });
+
+    // Auto-revalidate for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json(article, { status: 201 });
   } catch (error) {

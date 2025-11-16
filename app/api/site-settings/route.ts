@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { settingsSchema } from '@/app/lib/validation/settings';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 
 // GET - Fetch site settings
 export async function GET() {
@@ -55,6 +56,9 @@ export async function PUT(request: NextRequest) {
         returnDocument: 'after',
       }
     );
+
+    // Auto-revalidate for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json(result);
   } catch (error) {

@@ -3,6 +3,7 @@ import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { ObjectId } from 'mongodb';
 import { articleSchema } from '@/app/lib/validation/article';
 import { slugify } from '@/app/lib/slugify';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 
 // GET - Get single article
 export async function GET(
@@ -67,6 +68,9 @@ export async function PATCH(
       );
     }
 
+    // Auto-revalidate for real-time updates
+    revalidateHomePage();
+
     return NextResponse.json(result);
   } catch (error) {
     console.error('Error updating article:', error);
@@ -101,6 +105,9 @@ export async function DELETE(
         { status: 404 }
       );
     }
+
+    // Auto-revalidate for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json({ message: 'Article deleted successfully' });
   } catch (error) {

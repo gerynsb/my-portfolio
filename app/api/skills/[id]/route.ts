@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { ObjectId } from 'mongodb';
 import { skillSchema } from '@/app/lib/validation/skill';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 
 // GET - Get single skill
 export async function GET(
@@ -63,6 +64,9 @@ export async function PATCH(
       );
     }
 
+    // Auto-revalidate homepage for real-time updates
+    revalidateHomePage();
+
     return NextResponse.json(result);
   } catch (error) {
     console.error('Error updating skill:', error);
@@ -97,6 +101,9 @@ export async function DELETE(
         { status: 404 }
       );
     }
+
+    // Auto-revalidate homepage for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json({ success: true });
   } catch (error) {

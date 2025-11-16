@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { skillSchema } from '@/app/lib/validation/skill';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 
 // GET - List all skills
 export async function GET() {
@@ -40,6 +41,9 @@ export async function POST(request: NextRequest) {
     const skill = await db
       .collection(COLLECTIONS.SKILLS)
       .findOne({ _id: result.insertedId });
+
+    // Auto-revalidate homepage for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json(skill, { status: 201 });
   } catch (error) {

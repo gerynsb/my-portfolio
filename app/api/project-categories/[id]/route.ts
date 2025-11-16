@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { ObjectId } from 'mongodb';
 import { categorySchema } from '@/app/lib/validation/category';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 import { slugify } from '@/app/lib/slugify';
 
 // GET - Get single project category
@@ -79,6 +80,9 @@ export async function PATCH(
       );
     }
 
+    // Auto-revalidate for real-time updates
+    revalidateHomePage();
+
     return NextResponse.json(result);
   } catch (error) {
     console.error('Error updating category:', error);
@@ -126,6 +130,9 @@ export async function DELETE(
         { status: 404 }
       );
     }
+
+    // Auto-revalidate for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json({ message: 'Category deleted successfully' });
   } catch (error) {

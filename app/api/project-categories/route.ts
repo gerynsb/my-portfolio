@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { categorySchema } from '@/app/lib/validation/category';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 import { slugify } from '@/app/lib/slugify';
 
 // GET - List all project categories
@@ -58,6 +59,9 @@ export async function POST(request: NextRequest) {
     const category = await db
       .collection(COLLECTIONS.PROJECT_CATEGORIES)
       .findOne({ _id: result.insertedId });
+
+    // Auto-revalidate for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json(category, { status: 201 });
   } catch (error) {

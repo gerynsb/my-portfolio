@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { experienceSchema } from '@/app/lib/validation/experience';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 
 // GET - List all experiences
 export async function GET() {
@@ -38,6 +39,9 @@ export async function POST(request: NextRequest) {
     const experience = await db
       .collection(COLLECTIONS.EXPERIENCES)
       .findOne({ _id: result.insertedId });
+
+    // Auto-revalidate homepage for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json(experience, { status: 201 });
   } catch (error) {

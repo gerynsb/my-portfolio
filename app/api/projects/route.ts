@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase, COLLECTIONS } from '@/app/lib/db';
 import { projectSchema } from '@/app/lib/validation/project';
 import { slugify } from '@/app/lib/slugify';
+import { revalidateHomePage } from '@/app/lib/revalidate';
 
 // GET - List all projects
 export async function GET(request: NextRequest) {
@@ -76,6 +77,9 @@ export async function POST(request: NextRequest) {
     const project = await db
       .collection(COLLECTIONS.PROJECTS)
       .findOne({ _id: result.insertedId });
+
+    // Auto-revalidate homepage for real-time updates
+    revalidateHomePage();
 
     return NextResponse.json(project, { status: 201 });
   } catch (error) {
