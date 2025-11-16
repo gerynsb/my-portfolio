@@ -65,16 +65,17 @@ export default function HeroSection({ settings, profileImageUrl }: HeroSectionPr
 
       <div className="container mx-auto px-8 lg:px-24 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
-          <div className="space-y-6">
+          {/* Mobile: Image First, Desktop: Text First */}
+          <div className="order-2 lg:order-1 space-y-6 text-center lg:text-left">
             <p className="text-blue-400 font-semibold text-lg">{settings.heroGreeting}</p>
-            <h1 className="text-5xl lg:text-7xl bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent font-bold min-h-[5rem] lg:min-h-[6rem] flex items-center">
+            <h1 className="text-5xl lg:text-7xl bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent font-bold min-h-[5rem] lg:min-h-[6rem] flex items-center justify-center lg:justify-start">
               {displayedText}<span className="animate-pulse">|</span>
             </h1>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-lg">
+            <p className="text-gray-400 text-sm leading-relaxed max-w-lg mx-auto lg:mx-0">
               Passionate tech enthusiast building secure, reliable apps, web solutions and AI driven data analyst on the journey to entrepreneurship.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 justify-center lg:justify-start">
               <button
                 onClick={() => scrollToSection('projects')}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm sm:text-base"
@@ -90,7 +91,7 @@ export default function HeroSection({ settings, profileImageUrl }: HeroSectionPr
             </div>
 
             {/* Social links */}
-            <div className="flex gap-4 pt-4">
+            <div className="flex gap-4 pt-4 justify-center lg:justify-start">
               {settings.contactGithub && (
                 <a
                   href={settings.contactGithub}
@@ -133,7 +134,8 @@ export default function HeroSection({ settings, profileImageUrl }: HeroSectionPr
             </div>
           </div>
           
-          <div className="flex justify-center lg:justify-end">
+          {/* Profile Image - Mobile: First, Desktop: Second */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
             {profileImageUrl ? (
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 aspect-square rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/30 hover:ring-purple-500/30 transition-all">
                 <Image
