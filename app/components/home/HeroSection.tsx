@@ -56,11 +56,10 @@ export default function HeroSection({ settings, profileImageUrl }: HeroSectionPr
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black pt-20">
-      {/* Animated Background - Optimized */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-96 h-96 bg-blue-500/20 rounded-full blur-3xl will-change-opacity" style={{ top: '10%', left: '10%', animation: 'pulse 4s ease-in-out infinite' }}></div>
-        <div className="absolute w-96 h-96 bg-purple-500/20 rounded-full blur-3xl will-change-opacity" style={{ top: '60%', right: '10%', animation: 'pulse 4s ease-in-out infinite 1s' }}></div>
-        <div className="absolute w-64 h-64 bg-pink-500/20 rounded-full blur-3xl will-change-opacity" style={{ top: '40%', left: '50%', animation: 'pulse 4s ease-in-out infinite 2s' }}></div>
+      {/* Animated Background - Optimized with reduced blur */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute w-96 h-96 bg-blue-500/10 rounded-full blur-2xl will-change-opacity" style={{ top: '10%', left: '10%', animation: 'pulse 4s ease-in-out infinite' }}></div>
+        <div className="absolute w-96 h-96 bg-purple-500/10 rounded-full blur-2xl will-change-opacity" style={{ top: '60%', right: '10%', animation: 'pulse 4s ease-in-out infinite 1s' }}></div>
       </div>
 
       <div className="container mx-auto px-8 lg:px-24 relative z-10">
@@ -140,13 +139,15 @@ export default function HeroSection({ settings, profileImageUrl }: HeroSectionPr
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 aspect-square rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/30 hover:ring-purple-500/30 transition-all">
                 <Image
                   src={profileImageUrl}
-                  alt="Profile"
+                  alt="Dean Gery Pasamba Profile"
                   fill
                   sizes="(max-width: 1024px) 320px, 384px"
                   className="object-cover"
                   priority
                   fetchPriority="high"
-                  quality={85}
+                  quality={75}
+                  placeholder="blur"
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iIzMzMzMzMyIvPjwvc3ZnPg=="
                 />
               </div>
             ) : (

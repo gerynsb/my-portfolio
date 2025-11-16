@@ -78,9 +78,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://drive.google.com" crossOrigin="anonymous" />
         <link rel="canonical" href="https://deangerypasamba.site" />
+        <meta name="theme-color" content="#000000" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -99,7 +101,7 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen bg-black">
           {children}
         </div>
-        <SpeedInsights />
+        <SpeedInsights sampleRate={1} />
       </body>
     </html>
   );
