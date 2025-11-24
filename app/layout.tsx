@@ -83,6 +83,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://drive.google.com" crossOrigin="anonymous" />
         <link rel="canonical" href="https://deangerypasamba.site" />
         <meta name="theme-color" content="#000000" />
+        <link rel="manifest" href="/site.webmanifest" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -91,8 +92,33 @@ export default function RootLayout({
               "@type": "Person",
               "name": "Dean Gery Pasamba",
               "url": "https://deangerypasamba.site",
+              "image": "https://deangerypasamba.site/Logo/Deantransparan.png",
+              "logo": "https://deangerypasamba.site/Logo/Deantransparan.png",
               "jobTitle": "Full Stack Developer",
               "description": "Full Stack Developer specializing in web apps, Flutter development, and data analysis.",
+              "sameAs": [
+                "https://github.com/gerynsb"
+              ]
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Dean Gery Pasamba",
+              "url": "https://deangerypasamba.site",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://deangerypasamba.site/Logo/Deantransparan.png",
+                "width": 512,
+                "height": 512
+              },
+              "sameAs": [
+                "https://github.com/gerynsb"
+              ]
             })
           }}
         />

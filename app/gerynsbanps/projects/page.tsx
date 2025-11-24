@@ -67,6 +67,9 @@ export default function ProjectsPage() {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Order
+                  </th>
+                  <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Title
                   </th>
                   <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
@@ -83,6 +86,11 @@ export default function ProjectsPage() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {projects.map((project) => (
                   <tr key={project._id}>
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        {project.order ?? 0}
+                      </div>
+                    </td>
                     <td className="px-4 sm:px-6 py-4">
                       <div className="text-sm font-medium text-gray-900 max-w-xs truncate" title={project.title}>
                         {project.title}

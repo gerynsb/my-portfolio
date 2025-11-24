@@ -62,35 +62,35 @@ export default function HeroSection({ settings, profileImageUrl }: HeroSectionPr
         <div className="absolute w-96 h-96 bg-purple-500/10 rounded-full blur-2xl will-change-opacity" style={{ top: '60%', right: '10%', animation: 'pulse 4s ease-in-out infinite 1s' }}></div>
       </div>
 
-      <div className="container mx-auto px-8 lg:px-24 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-24 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-center">
           {/* Mobile: Image First, Desktop: Text First */}
-          <div className="order-2 lg:order-1 space-y-6 text-center lg:text-left">
+          <div className="order-2 lg:order-1 space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
             <p className="text-blue-400 font-semibold text-lg">{settings.heroGreeting}</p>
-            <h1 className="text-5xl lg:text-7xl bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent font-bold min-h-[5rem] lg:min-h-[6rem] flex items-center justify-center lg:justify-start">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent font-bold min-h-[4rem] sm:min-h-[5rem] lg:min-h-[6rem] flex items-center justify-center lg:justify-start w-full">
               {displayedText}<span className="animate-pulse">|</span>
             </h1>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-lg mx-auto lg:mx-0">
+            <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-lg">
               Passionate tech enthusiast building secure, reliable apps, web solutions and AI driven data analyst on the journey to entrepreneurship.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 w-full sm:w-auto">
               <button
                 onClick={() => scrollToSection('projects')}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm sm:text-base"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:scale-105 text-sm sm:text-base w-full sm:w-auto"
               >
                 View My Work
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="border-2 border-gray-600 text-gray-300 px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold hover:bg-white hover:text-black hover:border-white transition-all hover:scale-105 text-sm sm:text-base"
+                className="border-2 border-gray-600 text-gray-300 px-6 py-2.5 sm:px-8 sm:py-3 rounded-full font-semibold hover:bg-white hover:text-black hover:border-white transition-all hover:scale-105 text-sm sm:text-base w-full sm:w-auto"
               >
                 Get in Touch
               </button>
             </div>
 
             {/* Social links */}
-            <div className="flex gap-4 pt-4 justify-center lg:justify-start">
+            <div className="flex gap-4 pt-4">
               {settings.contactGithub && (
                 <a
                   href={settings.contactGithub}
@@ -134,14 +134,14 @@ export default function HeroSection({ settings, profileImageUrl }: HeroSectionPr
           </div>
           
           {/* Profile Image - Mobile: First, Desktop: Second */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
+          <div className="order-1 lg:order-2 flex justify-center">
             {profileImageUrl ? (
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96 aspect-square rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/30 hover:ring-purple-500/30 transition-all">
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 aspect-square rounded-full overflow-hidden shadow-2xl ring-4 ring-blue-500/30 hover:ring-purple-500/30 transition-all">
                 <Image
                   src={profileImageUrl}
                   alt="Dean Gery Pasamba Profile"
                   fill
-                  sizes="(max-width: 1024px) 320px, 384px"
+                  sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
                   className="object-cover"
                   priority
                   fetchPriority="high"
@@ -151,8 +151,8 @@ export default function HeroSection({ settings, profileImageUrl }: HeroSectionPr
                 />
               </div>
             ) : (
-              <div className="w-80 h-80 lg:w-96 lg:h-96 aspect-square rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform ring-4 ring-blue-500/30">
-                <span className="text-white text-8xl font-bold">
+              <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 aspect-square rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform ring-4 ring-blue-500/30">
+                <span className="text-white text-6xl sm:text-8xl font-bold">
                   {settings.heroTitle?.[0] || 'P'}
                 </span>
               </div>

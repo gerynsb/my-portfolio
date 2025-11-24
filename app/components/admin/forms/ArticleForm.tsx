@@ -178,14 +178,111 @@ export default function ArticleForm({ article }: { article?: any }) {
         <textarea
           value={formData.content}
           onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-          rows={15}
+          rows={20}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm text-gray-600 placeholder:text-gray-500"
           placeholder="Write your article content in Markdown format..."
         />
         {errors.content && <p className="mt-1 text-sm text-red-600">{errors.content}</p>}
-        <p className="mt-2 text-sm text-gray-500">
-          Supports Markdown: **bold**, *italic*, # Headings, [links](url), ![images](url), etc.
-        </p>
+        
+        {/* Markdown Guide */}
+        <div className="mt-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <h4 className="text-sm font-semibold text-blue-900 mb-2">📝 Panduan Menulis Markdown</h4>
+          <div className="text-xs text-blue-800 space-y-2">
+            <div>
+              <strong>Paragraf:</strong> Pisahkan dengan baris kosong (2x Enter)
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+Ini paragraf pertama.
+
+Ini paragraf kedua.</pre>
+            </div>
+            
+            <div>
+              <strong>Heading:</strong>
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+# Heading 1
+## Heading 2
+### Heading 3</pre>
+            </div>
+            
+            <div>
+              <strong>Bold & Italic:</strong>
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+**teks bold**
+*teks italic*
+***bold dan italic***</pre>
+            </div>
+            
+            <div>
+              <strong>Inline Code:</strong> Gunakan backtick (`)
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+Gunakan fungsi `console.log()` untuk debug.</pre>
+            </div>
+            
+            <div>
+              <strong>Code Block:</strong> Gunakan triple backtick (```) dengan nama bahasa
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+```javascript
+function hello() {'{'}
+  console.log("Hello World!");
+{'}'}
+```
+
+```python
+def hello():
+    print("Hello World!")
+```
+
+```tsx
+export default function App() {'{'}
+  return &lt;div&gt;Hello&lt;/div&gt;;
+{'}'}
+```</pre>
+            </div>
+            
+            <div>
+              <strong>List:</strong>
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+- Item 1
+- Item 2
+  - Sub item
+
+1. Numbered item 1
+2. Numbered item 2</pre>
+            </div>
+            
+            <div>
+              <strong>Link & Image:</strong>
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+[Teks link](https://example.com)
+![Alt text gambar](https://image-url.jpg)</pre>
+            </div>
+            
+            <div>
+              <strong>Quote:</strong>
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+&gt; Ini adalah quote atau kutipan</pre>
+            </div>
+            
+            <div>
+              <strong>Table:</strong>
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+| Header 1 | Header 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |
+| Cell 3   | Cell 4   |</pre>
+            </div>
+            
+            <div>
+              <strong>Horizontal Line:</strong>
+              <pre className="mt-1 bg-white p-2 rounded border border-blue-200 text-gray-700">
+---</pre>
+            </div>
+          </div>
+          
+          <p className="mt-3 text-xs text-blue-700">
+            <strong>💡 Tips:</strong> Untuk membuat paragraf baru, tekan Enter 2x (baris kosong di antara paragraf).
+          </p>
+        </div>
       </div>
 
       {/* Published */}

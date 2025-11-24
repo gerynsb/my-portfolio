@@ -26,6 +26,7 @@ export default function ProjectForm({ project }: ProjectFormProps) {
     githubUrl: project?.githubUrl || '',
     liveUrl: project?.liveUrl || '',
     featured: project?.featured || false,
+    order: project?.order || 0,
   });
 
   const [techInput, setTechInput] = useState('');
@@ -155,7 +156,11 @@ export default function ProjectForm({ project }: ProjectFormProps) {
     const { name, value, type } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      [name]: type === 'checkbox' 
+        ? (e.target as HTMLInputElement).checked 
+        : type === 'number' 
+        ? parseInt(value) || 0 
+        : value,
     });
   };
 
@@ -347,7 +352,7 @@ export default function ProjectForm({ project }: ProjectFormProps) {
       </div>
 
       <div className="bg-white border rounded-lg p-6 space-y-4">
-        <h3 className="text-lg font-semibold mb-4 text-black">Links</h3>
+        <h3 className="text-lg font-semibold mb-4 text-black">Links & Settings</h3>
         
         <div>
           <label className="block text-sm font-medium mb-1 text-gray-700">GitHub URL</label>
@@ -371,6 +376,25 @@ export default function ProjectForm({ project }: ProjectFormProps) {
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600 placeholder:text-gray-500"
             placeholder="https://example.com"
           />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1 text-gray-700">
+            Display Order
+            <span className="text-xs text-gray-500 ml-2">(Lower numbers appear first)</span>
+          </label>
+          <input
+            type="number"
+            name="order"
+            value={formData.order}
+            onChange={handleChange}
+            min="0"
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600"
+            placeholder="0"
+          />
+          <p className="text-xs text-gray-500 mt-1">
+            Gunakan angka ini untuk mengatur urutan tampilan project di homepage. Angka lebih kecil akan ditampilkan lebih dulu.
+          </p>
         </div>
 
         <div className="flex items-center gap-2">

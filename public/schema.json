@@ -3,10 +3,10 @@
   "@type": "Person",
   "name": "Dean Gery Pasamba",
   "url": "https://deangerypasamba.site",
+  "image": "https://deangerypasamba.site/Logo/Deantransparan.png",
+  "logo": "https://deangerypasamba.site/Logo/Deantransparan.png",
   "sameAs": [
-    "https://github.com/gerynsb",
-    "https://linkedin.com/in/yourprofile",
-    "https://instagram.com/yourusername"
+    "https://github.com/gerynsb"
   ],
   "jobTitle": "Full Stack Developer",
   "worksFor": {
@@ -14,5 +14,5 @@
     "name": "Freelance"
   },
   "description": "Full Stack Developer specializing in web apps, Flutter development, and data analysis.",
-  "knowsAbout": ["Web Development", "Flutter", "Data Analysis", "JavaScript", "TypeScript", "React", "Next.js"]
+  "knowsAbout": ["Web Development", "Flutter", "Data Analysis", "JavaScript", "TypeScript", "React", "Next.js", "MongoDB", "Node.js"]
 }

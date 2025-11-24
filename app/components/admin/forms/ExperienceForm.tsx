@@ -49,7 +49,7 @@ export default function ExperienceForm({ experience }: ExperienceFormProps) {
       router.refresh();
     } catch (err: any) {
       setError(err.message);
-    } finally {
+      } finally {
       setLoading(false);
     }
   };
