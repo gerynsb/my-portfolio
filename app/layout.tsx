@@ -5,11 +5,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export const metadata: Metadata = {
   metadataBase: new URL('https://deangerypasamba.site'),
   title: {
-    default: "Dean Gery Pasamba - Full Stack Developer Portfolio",
+    default: "Dean Gery Pasamba - Software Developer, Data and Business Analyst Portfolio",
     template: "%s | Dean Gery Pasamba"
   },
-  description: "Full Stack Developer specializing in web apps, Flutter development, and data analysis. Passionate tech enthusiast building secure, reliable solutions.",
-  keywords: ["Dean Gery Pasamba", "Full Stack Developer", "Flutter Developer", "Data Analyst", "Portfolio", "Web Development", "Mobile Development", "Indonesia Developer"],
+  description: "Software Developer in web, Flutter development, and Data & Business analysis. Passionate tech enthusiast building secure, reliable solutions.",
+  keywords: ["Dean Gery Pasamba", "Data Analyst", "Flutter Developer", "Portfolio", "Web Development", "Business Analyst", "Indonesia Developer"],
   authors: [{ name: "Dean Gery Pasamba", url: "https://deangerypasamba.site" }],
   creator: "Dean Gery Pasamba",
   publisher: "Dean Gery Pasamba",
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'id_ID',
     url: 'https://deangerypasamba.site',
-    title: 'Dean Gery Pasamba - Full Stack Developer Portfolio',
-    description: 'Full Stack Developer specializing in web apps, Flutter development, and data analysis. Building innovative solutions.',
+    title: 'Dean Gery Pasamba - Software Developer, Data and Business Analyst Portfolio',
+    description: 'Software Developer in web, Flutter development, and Data & Business analysis. Building innovative solutions.',
     siteName: 'Dean Gery Pasamba Portfolio',
     images: [
       {
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dean Gery Pasamba - Full Stack Developer Portfolio',
-    description: 'Full Stack Developer specializing in web apps, Flutter development, and data analysis.',
+    title: 'Dean Gery Pasamba - Software Developer, Data and Business Analyst Portfolio',
+    description: 'Software Developer in web, Flutter development, and Data & Business analysis. Building innovative solutions.',
     images: ['/og-image.png'],
   },
   verification: {
@@ -94,8 +94,8 @@ export default function RootLayout({
               "url": "https://deangerypasamba.site",
               "image": "https://deangerypasamba.site/Logo/Deantransparan.png",
               "logo": "https://deangerypasamba.site/Logo/Deantransparan.png",
-              "jobTitle": "Full Stack Developer",
-              "description": "Full Stack Developer specializing in web apps, Flutter development, and data analysis.",
+              "jobTitle": "Software Developer and Data & Business Analysis",
+              "description": 'Software Developer in web, Flutter development, and Data & Business analysis. Building innovative solutions.',
               "sameAs": [
                 "https://github.com/gerynsb"
               ]
